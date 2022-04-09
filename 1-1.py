@@ -9,7 +9,7 @@ data = [1293, 1207, 1623, 1675, 1842, 1410, 85, 1108, 557, 1217, 1506, 1956, 157
 def numFind(n):
     for i in data:
         for j in data:
-            if i + j == 2020:
+            if i + j == n:
                 return i * j
 
 
@@ -17,7 +17,7 @@ def numFind(n):
 if __name__ == '__main__':
     startTime = timeit.default_timer()
     print("\n>>>>>", time.asctime(), "<<<<<")
-    n = 0
+    n = 2020
     print("Result:", numFind(n))
     print("Run Time Was {:.4F} Seconds".format(timeit.default_timer() - startTime))
     print(">>>>>", time.asctime(), "<<<<<")
