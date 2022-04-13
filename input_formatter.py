@@ -50,6 +50,17 @@ def intListOfLists(n, o):
         output.write(formatted)
     return formatted
 
+def mixedCustom(n, o):
+    with open(n) as unFormatted:
+        formatted = unFormatted.read()
+    formatted = formatted.replace("-", ",")
+    formatted = formatted.replace(" ", ''', "''')
+    formatted = formatted.replace(":", '''"''')
+
+    with open(o, mode='w') as output:
+        output.write(formatted)
+    return formatted
+
 
 if __name__ == '__main__':
     startTime = timeit.default_timer()
@@ -57,9 +68,10 @@ if __name__ == '__main__':
     print()
     n = "input.txt"
     o = "output.txt"
-    print(strSingleList(n, o))
+    #print(strSingleList(n, o))
     #print(strListOfLists(n, o))
     #print(intSingleList(n, o))
     #print(intListOfLists(n, o))
+    print(mixedCustom(n, o))
     print()
     print("Run Time Was {:.4F} Seconds".format(timeit.default_timer() - startTime))
