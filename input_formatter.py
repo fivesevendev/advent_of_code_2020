@@ -14,11 +14,7 @@ def strListOfLists(n, o):
     with open(n) as unFormatted:
         formatted = unFormatted.read()
     formatted = str(list(formatted))
-    formatted = formatted.replace(""", '\\n'""", """],\n['""") ## New line for each row
-    #formatted = formatted.replace("""\n""", """],[""")  ## All rows on same line
-    #formatted = formatted.replace(" ", """','""")
-    #formatted = formatted.replace("..", ", ")
-    #formatted = formatted.replace(""",'""", ",")
+    formatted = formatted.replace(""", '\\n', """, """],\n[""")
     formatted = '''data = [\n{}\n]'''.format(formatted)
     with open(o, mode='w') as output:
         output.write(formatted)
@@ -29,7 +25,7 @@ def intSingleList(n, o):
         formatted = unFormatted.read()
     #formatted = str(list(formatted))
     #formatted = formatted.replace("""\n""", """],\n[""") ## New line for each row
-    formatted = formatted.replace("""\n""", """],[""")  ## All rows on same line
+    formatted = formatted.replace("""\n""", """],['""")  ## All rows on same line
     formatted = formatted.replace("""'""", "")
     formatted = formatted.replace(" ", "")
     formatted = '''data = [\n[{}]\n]'''.format(formatted)
@@ -46,6 +42,20 @@ def intListOfLists(n, o):
     formatted = formatted.replace("""'""", "")
     formatted = formatted.replace(" ", "")
     formatted = '''data = [\n{}\n]'''.format(formatted)
+    with open(o, mode='w') as output:
+        output.write(formatted)
+    return formatted
+
+def listOfDicts(n, o):
+    with open(n) as unFormatted:
+        formatted = unFormatted.read()
+    formatted = {" + formatted + "}"
+    formatted = formatted.replace("\n\n", '''"},{"''')
+    formatted = formatted.replace("\n", " ")
+    formatted = formatted.replace(",", ",\n")
+    formatted = formatted.replace(" ", '''", "''')
+    formatted = formatted.replace(":", '''": "''')
+    formatted = '''data = [\n"{}"\n]'''.format(formatted)
     with open(o, mode='w') as output:
         output.write(formatted)
     return formatted
@@ -72,6 +82,7 @@ if __name__ == '__main__':
     #print(strListOfLists(n, o))
     #print(intSingleList(n, o))
     #print(intListOfLists(n, o))
-    print(mixedCustom(n, o))
+    print(listOfDicts(n, o))
+    #print(mixedCustom(n, o))
     print()
     print("Run Time Was {:.4F} Seconds".format(timeit.default_timer() - startTime))
