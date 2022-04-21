@@ -345,14 +345,14 @@ data = [
 ]
 
 
-def numFind(n):
+def numFind(n, cc, rr):
     r, c = 0, 0
     count = 0
     while r < len(n):
         if checkTree(r, c):
             count += 1
-        r += 1
-        c += 3
+        r += rr
+        c += cc
         #print("Count: ", count)
     return count
 
@@ -365,10 +365,17 @@ def checkTree(r, c):
             #print("except")
         return n[r][c] == '#'
 
+def runMult (mult):
+    total = 1
+    for x in mult:
+        total *= numFind(n, x[0], x[1])
+    return total
+
 if __name__ == '__main__':
     startTime = timeit.default_timer()
     print("\n>>>>>", time.asctime(), "<<<<<")
     n = data
-    print("Result:", numFind(n))
+    mult = [(1,1), (3,1), (5,1), (7,1), (1,2)]
+    print("Result:",runMult(mult))
     print("Run Time Was {:.4F} Seconds".format(timeit.default_timer() - startTime))
     print(">>>>>", time.asctime(), "<<<<<")
