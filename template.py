@@ -3,9 +3,11 @@
 
 import timeit, sys, time
 
+
 testData = []
 
 data = []
+
 
 def numFind(n):
     pass
