@@ -49,13 +49,13 @@ def intListOfLists(n, o):
 def listOfDicts(n, o):
     with open(n) as unFormatted:
         formatted = unFormatted.read()
-    formatted = "{" + formatted + "}"
+    formatted = '''{"''' + str(formatted) + '''"}'''
     formatted = formatted.replace("\n\n", '''"},{"''')
     formatted = formatted.replace("\n", " ")
     formatted = formatted.replace(",", ",\n")
     formatted = formatted.replace(" ", '''", "''')
-    formatted = formatted.replace(":", '''": "''')
-    formatted = '''data = [\n"{}"\n]'''.format(formatted)
+    formatted = formatted.replace(":", '''":"''')
+    formatted = '''data = [\n{}\n]'''.format(formatted)
     with open(o, mode='w') as output:
         output.write(formatted)
     return formatted
