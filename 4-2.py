@@ -305,10 +305,10 @@ def numFind(n):
             if i["hcl"][0] == "#":
                 if len(i["hcl"]) == 7:
                     chars = 0
-                    for c in i["hcl"]:
-                        if c in "#123456789abcdef":
+                    for c in i["hcl"][1:]:
+                        if c in "0123456789abcdef":
                             chars += 1
-                    if chars == 7:
+                    if chars == 6:
                         count += 1
         if "ecl" in i:
             if len(i["ecl"]) == 3:
@@ -318,7 +318,6 @@ def numFind(n):
             if len(i["pid"]) == 9:
                 count += 1
         if count == 7:
-            print(i["byr"], i["iyr"], i["eyr"], i["hgt"], i["hcl"], i["ecl"], i["pid"], )
             total += 1
     return total
 
