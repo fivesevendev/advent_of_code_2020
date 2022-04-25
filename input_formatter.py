@@ -1,75 +1,15 @@
 import timeit, sys, time
 
 
-def strSingleList(n, o):
-    with open(n) as unFormatted:
-        formatted = unFormatted.read()
-    formatted = str(list(formatted))
-    formatted = '''data = {}'''.format(formatted)
+def parser(n, o):
+    with open(n) as unParsed:
+        parsed = unParsed.read()
+    parsed = str(parsed.split(sep="\n"))
+    parsed = parsed.replace(""", '', """, """], [""")
+    parsed = '''data = {}'''.format(parsed)
     with open(o, mode='w') as output:
-        output.write(formatted)
-    return formatted
-
-def strListOfLists(n, o):
-    with open(n) as unFormatted:
-        formatted = unFormatted.read()
-    formatted = str(list(formatted))
-    formatted = formatted.replace(""", '\\n', """, """],\n[""")
-    formatted = '''data = [\n{}\n]'''.format(formatted)
-    with open(o, mode='w') as output:
-        output.write(formatted)
-    return formatted
-
-def intSingleList(n, o):
-    with open(n) as unFormatted:
-        formatted = unFormatted.read()
-    #formatted = str(list(formatted))
-    #formatted = formatted.replace("""\n""", """],\n[""") ## New line for each row
-    formatted = formatted.replace("""\n""", """],['""")  ## All rows on same line
-    formatted = formatted.replace("""'""", "")
-    formatted = formatted.replace(" ", "")
-    formatted = '''data = [\n[{}]\n]'''.format(formatted)
-    with open(o, mode='w') as output:
-        output.write(formatted)
-    return formatted
-
-def intListOfLists(n, o):
-    with open(n) as unFormatted:
-        formatted = unFormatted.read()
-    formatted = str(list(formatted))
-    #formatted = formatted.replace(""" '\\n',""", """],\n[""") ## New line for each row
-    formatted = formatted.replace(""" '\\n',""", """],[""")  ## All rows on same line
-    formatted = formatted.replace("""'""", "")
-    formatted = formatted.replace(" ", "")
-    formatted = '''data = [\n{}\n]'''.format(formatted)
-    with open(o, mode='w') as output:
-        output.write(formatted)
-    return formatted
-
-def listOfDicts(n, o):
-    with open(n) as unFormatted:
-        formatted = unFormatted.read()
-    formatted = '''{"''' + str(formatted) + '''"}'''
-    formatted = formatted.replace("\n\n", '''"},{"''')
-    formatted = formatted.replace("\n", " ")
-    formatted = formatted.replace(",", ",\n")
-    formatted = formatted.replace(" ", '''", "''')
-    formatted = formatted.replace(":", '''":"''')
-    formatted = '''data = [\n{}\n]'''.format(formatted)
-    with open(o, mode='w') as output:
-        output.write(formatted)
-    return formatted
-
-def mixedCustom(n, o):
-    with open(n) as unFormatted:
-        formatted = unFormatted.read()
-    formatted = formatted.replace("-", ",")
-    formatted = formatted.replace(" ", ''', "''')
-    formatted = formatted.replace(":", '''"''')
-
-    with open(o, mode='w') as output:
-        output.write(formatted)
-    return formatted
+        output.write(parsed)
+    return parsed
 
 
 if __name__ == '__main__':
@@ -78,11 +18,6 @@ if __name__ == '__main__':
     print()
     n = "input.txt"
     o = "output.txt"
-    #print(strSingleList(n, o))
-    #print(strListOfLists(n, o))
-    #print(intSingleList(n, o))
-    #print(intListOfLists(n, o))
-    print(listOfDicts(n, o))
-    #print(mixedCustom(n, o))
+    print(parser(n, o))
     print()
     print("Run Time Was {:.4F} Seconds".format(timeit.default_timer() - startTime))
