@@ -10,16 +10,22 @@ data = ['vibrant lavender bags contain 1 shiny coral bag, 4 dotted purple bags.'
 
 
 def numFind(n):
-    count = 0
-    stepOne = []
-    for rule in n:
-        if "shiny gold" in rule:
-            if " ".join(rule.split(sep=" ")[:2]) != "shiny gold":
-                count += 1
-                print(count, ":", rule)
-                stepOne.append(" ".join(rule.split(sep=" ")[:2]))
-    return len(stepOne)
+    bags = []
+    q = tokFind("shiny gold", n)
+    bags.extend(q)
+    while len(q) > 0:
+        x = q.pop()
+        q.extend(tokFind(x, n))
+        bags.extend(tokFind(x, n))
+    return len(set(bags))
 
+def tokFind(tok, n):
+    output = []
+    for rule in n:
+        if tok in rule:
+            if " ".join(rule.split(sep=" ")[:2]) != tok:
+                output.append(" ".join(rule.split(sep=" ")[:2]))
+    return output
 
 if __name__ == '__main__':
     startTime = timeit.default_timer()
