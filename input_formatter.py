@@ -4,9 +4,9 @@ import timeit, sys, time
 def parser(n, o):
     with open(n) as unParsed:
         parsed = unParsed.read()
-    parsed = str(parsed.split(sep="\n"))
-    parsed = parsed.replace(""", '', """, """], [""")
-    parsed = '''data = {}'''.format(parsed)
+    parsed = str(parsed.split(sep=" "))
+    parsed = parsed.replace("\\n", """'], ['""")
+    parsed = '''data = [{}]'''.format(parsed)
     with open(o, mode='w') as output:
         output.write(parsed)
     return parsed
